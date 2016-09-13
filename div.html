@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			body{
+				margin:0;
+			}
+			dl,dd{
+				margin:0;
+			}
+			.fl{
+				float:left;
+			}
+			.clearfix:after{
+				content:"";
+				display:block;
+				clear:both;
+			}
+			.title{
+				padding-top:20px;
+			}
+			.text{
+				font-size:48px;
+				font-weight:bold;
+				padding-left:20px;
+			}
+			#div1{
+				width:200px;
+				height:200px;
+				border:5px solid #000;
+				margin:40px 20px;
+			}
+			#settingbtn{
+				font-size:28px;
+				background:red;
+				width:200px;
+				height:48px;
+				vertical-align:top;
+				border:none;
+			}
+			#redbtn{
+				background: red;
+				border:none;
+			}
+			#yellowbtn{
+				background:yellow;
+				border:none;
+			}
+			#bluebtn{
+				background:blue;
+				border:none;
+			}
+			#box{
+				width:450px;
+				height:230px;
+				text-align: center;
+				background:#fff;
+				display:none;
+				position: absolute;
+				left:700px;
+				top:500px;
+				z-index: 12;
+			}
+			
+			#box input{
+				width:50px;
+				height:30px;
+			}
+			#box #regain,#box #ensure{
+				width:80px;
+				height:30px;
+				font-size:16px;
+				color:#fff;
+				background: blue;
+				border:none;
+			}
+			#box dl{
+				height:60px;
+				line-height:60px;
+			}
+			#box dt{
+				width:150px;
+			}
+			#box dd{
+				width:300px;
+			}
+			#bg{
+				width:100%;
+				height:100%;
+				background:rgba(0,0,0,0.4);
+				position:absolute;
+				left:0;
+				top:0;
+				display:none;
+				z-index: 10;
+			}
+		</style>
+		<script >
+		window.onload = function(){
+			var div1 = document.getElementById('div1');
+			var box = document.getElementById('box');
+			var bg = document.getElementById('bg');
+		//	给按钮添加点击事件
+			document.getElementById('settingbtn').onclick = function(){
+				box.style.display='block';
+				bg.style.display='block';
+			}
+			document.getElementById('redbtn').onclick = function(){
+				div1.style.backgroundColor='red';
+			}
+			document.getElementById('yellowbtn').onclick = function(){
+				div1.style.backgroundColor='yellow';
+			}
+			document.getElementById('bluebtn').onclick = function(){
+				div1.style.backgroundColor='blue';
+			}
+			document.getElementById('width-100').onclick = function(){
+				div1.style.width='100px';
+			}
+			document.getElementById('width-300').onclick = function(){
+				div1.style.width='300px';
+			}
+			document.getElementById('width-500').onclick = function(){
+				div1.style.width='500px';
+			}
+			document.getElementById('height-150').onclick = function(){
+				div1.style.height='150px';
+			}
+			document.getElementById('height-250').onclick = function(){
+				div1.style.height='250px';
+			}
+			document.getElementById('height-350').onclick = function(){
+				div1.style.height='350px';
+			}
+			document.getElementById('regain').onclick = function(){
+				div1.style.width='200px';
+				div1.style.height='200px';
+				div1.style.backgroundColor='#fff';
+			}
+			document.getElementById('ensure').onclick = function(){
+				box.style.display='none';
+				bg.style.display='none';
+			}
+		}
+		</script>
+	</head>
+	<body>
+		<div class="title">
+			<span class="text">请为下面的DIV设置样式：</span>
+			<input id="settingbtn" type="button"  value="点我设置"/>
+		</div>
+		<div id="div1"></div>
+		<div id="bg"></div>
+		<div id="box">
+			<dl class="clearfix">
+				<dt class="fl">请选择背景颜色：</dt>
+				<dd class="fl">
+					<input type="button" value="红色" id="redbtn" />
+					<input type="button" value="黄色" id="yellowbtn"/>
+					<input type="button" value="蓝色" id="bluebtn"/>
+				</dd>
+			</dl>
+			<dl class="clearfix">
+				<dt class="fl">请选择宽（PX）：</dt>
+				<dd class="fl">
+					<input type="button" value="100" id="width-100"/>
+					<input type="button" value="300" id="width-300"/>
+					<input type="button" value="500" id="width-500"/>
+				</dd>
+			</dl>
+			<dl class="clearfix">
+				<dt class="fl">请选择高（PX）：</dt>
+				<dd class="fl">
+					<input type="button" value="150" id="height-150"/>
+					<input type="button" value="250" id="height-250"/>
+					<input type="button" value="350" id="height-350"/>
+				</dd>
+			</dl>
+			<input type="button" value="取消" id="regain"/>
+			<input type="button" value="确定" id="ensure" />
+		</div>
+	</body>
+</html>
