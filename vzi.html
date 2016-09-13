@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			#box{
+				width:250px;
+				height:250px;
+				/*border:10px solid #000000;*/
+				position:relative;
+				margin:20px;
+			}
+			.content{
+				width:50px;
+				height:50px;
+				line-height:50px;
+				text-align:center;
+				background: red;
+				position: absolute;
+			}
+		</style>
+		<script>
+			window.onload = function(){
+//	获取所需的所有元素
+			  var box = document.getElementById('box');
+			  var Oinput = document.getElementById('btn1');
+			  var Ocontent =  document.getElementsByClassName('content');
+//			  定义初始状态
+			  var onOff = true;
+			  var num =0;
+//			  添加点击事件
+  		Oinput.onclick = function(){
+//添加判断条件
+		  	if(onOff){
+		  		for(var a = 0;a < 5;a++){
+		  			box.innerHTML +='<div class="content">'+a+'</div>';
+		  			onOff=false;
+		  			if(a<=2){
+								Ocontent[a].style.left = 50*a+'px';
+								Ocontent[a].style.top = 50*a+'px';
+							}else if(a>2){
+								Ocontent[a].style.left = 50*a +'px';
+								Ocontent[a].style.top = 50*(a%2)+'px';
+							}
+							onOff=false;
+		  				}
+		  	}else if(num%4==1) {
+			  	for(var a = 0;a < 5;a++){
+			  			if(a<2){
+									Ocontent[a].style.left =(200- 50*a)+'px';
+								}else{
+									Ocontent[a].style.left = 50*a+'px';
+								}
+								Ocontent[a].style.top = 50*a+'px';
+			  		}
+		  	}else if(num%4==2) {
+				  	for(var a = 0;a < 5;a++){
+				  			if(a<=2){
+										Ocontent[a].style.top = (200- 50*a)+'px';
+									}else{
+										Ocontent[a].style.top =  50*a +'px';
+									}
+									Ocontent[a].style.left =(200- 50*a)+'px';
+				  		}
+				}else if(num%4==3) {
+			  	for(var a = 0;a < 5;a++){
+			  			if(a<2){
+									Ocontent[a].style.left = 50*a+'px';
+								}else{
+									Ocontent[a].style.left = (200- 50*a)+'px';
+								}
+								Ocontent[a].style.top = (200- 50*a)+'px';
+			  		}
+		  	}else{
+			  	for(var a = 0;a < 5;a++){
+			  			if(a<=2){
+								Ocontent[a].style.top = 50*a+'px';
+							}else {
+								Ocontent[a].style.top = (200- 50*a)+'px';
+							}
+							Ocontent[a].style.left = 50*a+'px';
+			  		}
+		  	}
+ 	num++;
+ 	 }
+} 
+		</script>
+	</head>
+	<body>
+		<input type="button"  id="btn1" value="按钮" />
+		<div id="box"></div>
+	</body>
+</html>
