@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			body{
+				margin:0;
+				/*content:"";
+				display:block;
+				clear:both;*/
+				position: relative;
+			}
+			div{
+				width: 90px;
+				height:40px;
+				font-size:28px;
+				font-weight:bold;
+				line-height:40px;
+				text-align: center;
+				border:1px solid black;
+				color:red;
+				background:blue;
+				position:absolute;
+			}
+		</style>
+		<script>
+			window.onload = function(){
+			var str = '';
+			for(var i = 1;i<10;i++){
+					for(var j = 1;j<=i;j++){
+						str +='<div style="left:'+(j-1)*100+'px;top:'+(i-1)*50+'px;">'+j+'X'+i+'='+ (i*j)+'</div>';
+					}
+				}
+			document.body.innerHTML = str;
+			}
+		</script>
+	</head>
+	<body>
+	</body>
+</html>
