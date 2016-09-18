@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style>
+			input{
+				padding:0;
+			}
+			input{
+				border:1px solid red;
+				width:100px;
+				height:30px;
+				vertical-align: top;
+			}
+			select{
+				height:32px;
+				vertical-align: top;
+			}
+			#btn{
+				width:30px;
+				height:32px;
+			}
+			#result{
+				width:100px;
+				height:30px;
+				line-height:30px;
+				text-align: center;
+				display: inline-block;
+			}
+			#num{
+				width:50px;
+				height:30px;
+				line-height:30px;
+				text-align: center;
+				display: inline-block;
+			}
+		</style>
+		<script>
+			window.onload = function(){
+				var Oinput1 = document.getElementById('input1');
+				var Oinput2 = document.getElementById('input2');
+				var Obtn = document.getElementById('btn');
+				var Olist = document.getElementById('list');
+				var Onum = document.getElementById('num');
+				var Option = document.getElementsByTagName('option');
+				var Oresult = document.getElementById('result');
+				var arr = ['+','-','*','/'];
+				var num = 0;
+				Onum.onclick = function(){
+					if(num<=arr.length-1){
+						num++;
+					}
+					if(num>arr.length-1){
+						num=0;
+					}
+					Onum.innerHTML = arr[num];
+					i=num;
+				}
+				for(var i = 0;i<arr.length-1;i++){
+					Obtn.onclick = function(){
+					switch(i){
+							case 0 :
+								if(isNaN(Oinput1.value)){
+									alert('请在第一个框内输入数字')
+								}else if(isNaN(Oinput2.value)){
+									alert('请在第二个框内输入数字')
+								}else{
+									Oresult.innerHTML = parseFloat(Oinput1.value)+parseFloat(Oinput2.value);
+								}
+								break;
+							case 1 :
+								if(isNaN(Oinput1.value)){
+									alert('请在第一个框内输入数字')
+								}else if(isNaN(Oinput2.value)){
+									alert('请在第二个框内输入数字')
+								}else{
+									Oresult.innerHTML = parseFloat(Oinput1.value)-parseFloat(Oinput2.value);
+								}
+								break;
+							case 2 :
+								if(isNaN(Oinput1.value)){
+									alert('请在第一个框内输入数字')
+								}else if(isNaN(Oinput2.value)){
+									alert('请在第二个框内输入数字')
+								}else{
+									Oresult.innerHTML = parseFloat(Oinput1.value)*parseFloat(Oinput2.value);
+								}
+								break;
+							case 3 :
+								if(isNaN(Oinput1.value)){
+									alert('请在第一个框内输入数字')
+								}else if(isNaN(Oinput2.value)){
+									alert('请在第二个框内输入数字')
+								}else{
+									Oresult.innerHTML = parseFloat(Oinput1.value)/parseFloat(Oinput2.value);
+								}
+								break;
+							}
+					}
+				}
+				
+			}
+		</script>
+	</head>
+	<body>
+		<input type="text" id="input1" />
+		<span id="num"></span>
+		<!--<select name="" id="list">
+			<option value="+">+</option>
+			<option value="-">-</option>
+			<option value="*">*</option>
+			<option value="/">/</option>
+		</select>-->
+		<input type="text" id="input2" />
+		<input type="button" id="btn" value="=" />
+		<span id="result"></span>
+	</body>
+</html>
