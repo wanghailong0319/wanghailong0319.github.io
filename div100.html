@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+		.b_box{
+			width:50px;
+			height:50px;
+			line-height:50px;
+			text-align: center;
+			font-size:30px;
+			background:pink ;
+			display:inline-block;
+			margin-right:10px;
+			margin-bottom:10px;
+		}
+		</style>
+		<script>
+			window.onload = function(){
+				var Obox = document.getElementById('box');
+				var str = '';
+				for(var i = 0;i<10;i++){
+					var stra = '';
+					for(var j = 0;j<10;j++){
+						stra +='<div class="b_box">'+(i*10+j)+'</div>'
+					}
+					str +='<div class="s_box">'+stra+'</div>'
+				}
+				Obox.innerHTML = str;
+			}
+		</script>
+	</head>
+	<body>
+		<div id="box"></div>
+	</body>
+</html>
