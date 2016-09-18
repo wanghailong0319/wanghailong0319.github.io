@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style>
+			ul,li{
+				margin:0;
+				padding:0;
+				list-style:none;
+			}
+			h2{
+				margin:0;
+			}
+			h2{
+				width:200px;
+				height:50px;
+				line-height:50px;
+				text-align: center;
+				background:pink;
+			}
+			li{
+				width:200px;
+				height:40px;
+				line-height:40px;
+				text-align: center;
+				background:greenyellow;
+				margin-bottom:1px;
+			}
+			ul{
+				display:none;
+			}
+			.uactive{
+				background:orange;
+			}
+			.lactive{
+				background:khaki;
+			}
+		</style>
+		<script>
+			window.onload = function(){
+			//	获取所需要的所有元素
+				var Ah2 = document.getElementsByTagName('h2');
+				var Aul = document.getElementsByTagName('ul');
+				var Ali = document.getElementsByTagName('li');
+			//	for循环
+				for(var i = 0;i<Ah2.length;i++){
+			//		记录状态
+					Ah2[i].Index = i;
+			//		添加事件
+					Ah2[i].onclick = function(){
+						for(var i = 0;i<Ah2.length;i++){
+			//				添加判断条件
+							if(this.className == ''){
+								Aul[this.Index].style.display = 'block';
+								this.className = 'uactive';
+							}else{
+								Aul[this.Index].style.display = 'none';
+								this.className = '';
+							}	
+						}	
+					}
+				}
+				for(var i = 0;i<Ali.length;i++){
+					var onOff = true;
+					if(onOff){
+						Ali[i].onclick = function(){
+							for(var i = 0;i<Ali.length;i++){
+								Ali[i].style.background = 'greenyellow';
+								var onOff = true;
+								if(onOff){
+									this.style.background = 'khaki';
+									onOff = false;
+								}else{
+									this.style.background = 'greenyellow';
+									onOff = true;
+								}
+							}
+						}
+					}else{
+						Ali[i].onclick = function(){
+							this.style.background = 'greenyellow';
+						}		
+					}
+				}
+			}
+		</script>
+	</head>
+	<body>
+				<h2>我的好友</h2>
+				<ul>
+					<li>赵钱孙</li>
+					<li>钱孙李</li>
+					<li>孙李周</li>
+					<li>李周吴</li>
+				</ul>
+				<h2>我的同学</h2>
+				<ul>
+					<li>赵大</li>
+					<li>钱二</li>
+					<li>孙三</li>
+					<li>李四</li>
+				</ul>
+				<h2>黑名单</h2>
+				<ul>
+					<li>周五</li>
+					<li>周六</li>
+				</ul>
+	</body>
+</html>
