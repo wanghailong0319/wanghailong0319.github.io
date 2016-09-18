@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<script >
+			window.onload = function(){
+				var OreduceBtn = document.getElementById('reduceBtn');
+				var OplusBtn = document.getElementById('plusBtn');
+				var Onumber = document.getElementById('number');
+				var Ototal = document.getElementById('totalize');
+				var OreduceBtn1 = document.getElementById('reduceBtn1');
+				var OplusBtn1 = document.getElementById('plusBtn1');
+				var Onumber1 = document.getElementById('number1');
+				var Ototal1 = document.getElementById('totalize1');
+				var OreduceBtn2 = document.getElementById('reduceBtn2');
+				var OplusBtn2 = document.getElementById('plusBtn2');
+				var Onumber2 = document.getElementById('number2');
+				var Ototal2 = document.getElementById('totalize2');
+				var Ototal0 = document.getElementById('total');
+				var Ocount = document.getElementById('count');
+				var Oprice = document.getElementById('price');
+			//	function getId (Id){
+			//		return document.getElementById('Id')
+			//	}
+				var num = 0;
+				var a = 0;
+				var b = 0;
+				var c = 0;
+				function total(){
+					Ototal0.innerHTML= parseFloat(Ototal.innerHTML)+parseFloat(Ototal1.innerHTML)+parseFloat(Ototal2.innerHTML);
+				}
+				function nt0(){
+					Onumber.innerHTML = 0;
+					Ototal.innerHTML = 0;
+				}
+				function nc(){
+					Onumber.innerHTML = num;
+					Ototal.innerHTML = 12.5*num;
+					Ocount.innerHTML =c;
+				}
+				function ac(){
+					Onumber1.innerHTML = a;
+					Ototal1.innerHTML = 16*a;
+					Ocount.innerHTML =c;
+				}
+				function bc(){
+					Onumber2.innerHTML = b;
+					Ototal2.innerHTML = 9.5*b;
+					Ocount.innerHTML =c;
+				}
+				function plus(){
+					if(parseFloat(Onumber1.innerHTML)>0){
+						Oprice.innerHTML = 16;
+					}else if(parseFloat(Onumber.innerHTML)>0){
+						Oprice.innerHTML = 12.5;
+					}else if(parseFloat(Onumber2.innerHTML)>0){
+						Oprice.innerHTML = 9.5;
+					}else{
+						Oprice.innerHTML = 0;
+					}
+				}
+				OplusBtn.onclick = function(){
+					num++;
+					c++;
+					nc();
+					total();
+					plus();
+				}
+				OreduceBtn.onclick = function(){
+					if(num>0){
+						num--;
+						c--;
+						nc();
+					}else{
+						nt0();
+					}
+					total();
+					plus();
+				}
+				OplusBtn1.onclick = function(){
+					a++;
+					c++;
+					ac();
+					total();
+					plus();
+				}
+				OreduceBtn1.onclick = function(){
+					if(a>0){
+						a--;
+						c--;
+						ac();
+					}else{
+						nt0();
+					}
+					total();
+					plus();
+				}
+				OplusBtn2.onclick = function(){
+					b++;
+					c++;
+					bc();
+					total();
+					plus();
+				}
+				OreduceBtn2.onclick = function(){
+					if(b>0){
+						b--;
+						c--;
+						bc();
+					}else{
+						nt0();
+					}
+					total();
+					plus();
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<span>*</span>
+		<input type="button" value="-" id="reduceBtn" />
+		<span id="number">0</span>
+		<input type="button" value="+" id="plusBtn" />
+		<span>单价：12.5元   合计：</span>
+		<span id="totalize">0</span>
+		<span>元</span>
+		<br />
+		<span>*</span>
+		<input type="button" value="-" id="reduceBtn1" />
+		<span id="number1">0</span>
+		<input type="button" value="+" id="plusBtn1" />
+		<span>单价：16元   合计：</span>
+		<span id="totalize1">0</span>
+		<span>元</span>
+		<br />
+		<span>*</span>
+		<input type="button" value="-" id="reduceBtn2" />
+		<span id="number2">0</span>
+		<input type="button" value="+" id="plusBtn2" />
+		<span>单价：9.5元   合计：</span>
+		<span id="totalize2">0</span>
+		<span>元</span>
+		<br />
+		<span>单价最高：</span>
+		<span id="price">0</span>
+		<span>元</span>
+		<span>商品总数量：</span>
+		<span id="count">0</span>
+		<span>件</span>
+		<span>总计：</span>
+		<span id="total">0</span>
+		<span>元</span>
+	</body>
+</html>
