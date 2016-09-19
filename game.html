@@ -267,7 +267,7 @@ var Tween = {
 				changeNum();
 			}
 			var isMousedown = false;
-			runSpan.onmousedown = function(){
+			runSpan.onmousedown = function(e){
 				if(!isMousedown){
 					isMousedown = true;
 					clearInterval(this.top);
@@ -284,6 +284,7 @@ var Tween = {
 							isMousedown = false;
 					})
 				}
+			e.stopPropagation();
 			}
 			function changeNum(){
 					var L = Math.round( Math.random() * 770 );
