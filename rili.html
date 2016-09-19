@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style>
+			td,th{
+				width:80px;
+				height:50px;
+				line-height:50px;
+				text-align: center;
+				color:#000;
+			}
+			body{
+				font-size:40px;
+			}
+			th{
+				background:darkturquoise;
+				font-size:32px;
+			}
+			td{
+				background:pink;
+				font-size:30px;
+			}
+			span{
+				width:100px;
+				height:50px;
+				line-height:50px;
+				text-align: center;
+				font-size:40px;
+			}
+			tr td:first-of-type{
+				background: orangered;
+			}
+			tr td:last-of-type{
+				background: orangered;
+			}
+			#time{
+				font-size:30px;
+			}
+		</style>
+		<script>
+			window.onload = function(){
+				var Otable = document.getElementById('table');
+				var Otb = document.getElementById('tb');
+				var Otime = document.getElementById('time');
+				var Oprev = document.getElementById('prev');
+				var Onext = document.getElementById('next');
+				var Oy = document.getElementById('year');
+				var Om = document.getElementById('month');
+				var Obtn = document.getElementById('btn');
+				var Tds = document.getElementsByTagName('td');
+				var d=new Date();
+				var ynum =d.getFullYear();
+				var mnum =d.getMonth()+1;
+				omy();
+				Onext.onclick = function(){
+					mnum++;
+					if(mnum>12){
+						mnum=1;
+						ynum++;
+					}
+					omy();
+				}
+				Oprev.onclick = function(){
+					mnum--;
+					if(mnum<1){
+						mnum=12;
+						ynum--;
+					}
+					omy();
+				}	
+				Obtn.onclick = function(){
+					ynum =d.getFullYear();
+					mnum=d.getMonth()+1;
+					omy();
+				}
+				for (var i = 0; i < Tds.length; i++) {
+					Tds[i].onclick =function(){
+						for (var i = 0; i < Tds.length; i++) {
+							Tds[i].style.backgroundColor = '';
+						}
+						this.style.backgroundColor = 'blue';
+					}
+				}
+				nowtime();
+				setInterval(nowtime,1000);
+				function YM(y,m){
+					return new Date(y,m,1)
+				}
+				function omy(){
+					if(mnum<10){
+						mnum='0'+mnum;
+					}
+					Om.innerHTML=mnum;
+					Oy.innerHTML =ynum;
+					change(ynum,mnum);
+				}
+				function change(yn,mn){
+					var monthDays=new Date(YM(yn,mn)-1).getDate();
+					var isWeek = YM(yn,mn-1).getDay();
+					var upDays =new Date(YM(yn,mn-1)-1).getDate();
+					var rows =Math.ceil((monthDays+isWeek)/7);
+					var num =1-isWeek;
+					var str = '';
+					for(var i=0;i<6;i++){
+						str +='<tr>';
+						for(var j =0;j<7;j++){
+							if(num<1){
+								str +='<td style="color:rgba(0,0,0,0.5)">'+(upDays+num)+'</td>';
+							}else if(num>monthDays){
+								str +='<td style="color:rgba(0,0,0,0.5)">'+(num-monthDays)+'</td>';
+							}else{
+								if(num==d.getDate()&&mnum==d.getMonth()+1&&ynum==d.getFullYear()){
+									str +='<td style="background-color:blue">'+num+'</td>';
+								}else{
+									str +='<td>'+num+'</td>';
+								}
+							}
+							num++;
+						}
+						str +='</tr>';
+					}
+					Otb.innerHTML = str;
+				}
+				function nowtime(){
+					var d= new Date();
+					var year =d.getFullYear();
+					var month = d.getMonth()+1;
+					var days = d.getDate();
+					var h =d.getHours();
+					var m =d.getMinutes();
+					var s =d.getSeconds();
+					var w =d.getDay();
+					Otime.innerHTML = year+'年'+time(month)+'月'+time(days)+'日'+'&nbsp; &nbsp'+time(h)+'：'+time(m)+'：'+time(s)+'&nbsp; &nbsp'+'星期'+day(w);
+					function day(b){
+						return ['日','一','二','三','四','五','六'][b]
+					}
+					function time(a){
+						if(a<10){
+							return a='0'+a;
+						}else{
+							return a=a;
+						}
+					}
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div id="time"></div>
+		<span id="year"></span>年
+		<span id="month"></span>月
+		<br/>
+		<input type="button" id="prev" value="<"/>
+		<input type="button" id="next" value=">"/>
+		<input type="button" id="btn" value="返回当前时间"/>
+		<table id="table">
+			<thead>
+				<th>日</th>
+				<th>一</th>
+				<th>二</th>
+				<th>三</th>
+				<th>四</th>
+				<th>五</th>
+				<th>六</th>
+			</thead>
+			<tbody id="tb"></tbody>
+		</table>
+	</body>
+</html>
