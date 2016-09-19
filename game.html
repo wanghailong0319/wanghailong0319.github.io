@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			p{
+				padding:0;
+				margin:0;
+			}
+			p{
+				line-height:40px;
+				font-size:20px;
+			}
+			#title{
+				width:1000px;
+				margin: 0 auto;
+				text-align: center;
+			}
+			#box{
+				width:1000px;
+				height:800px;
+				margin: 10px auto;
+				position: relative;
+			}
+			#score{
+				width:177px;
+				height:80px;
+				border:1px solid #00CED1;
+				background:pink;
+				padding:10px;
+				position:absolute;
+				top:0;
+				left:0;
+			}
+			#qq{
+				width:800px;
+				height:800px;
+				overflow: hidden;
+				position:absolute;
+				top:0;
+				right:0px;
+				border:1px solid #00CED1;
+			}
+			#qq span{
+				width:30px;
+				height:30px;
+				position: absolute;
+				left: 0px;
+				top:-30px;
+			}
+
+		</style>
+		<script>
+			function mTween(obj, attr, target, duration, fx, callback) {
+    clearInterval(obj[attr]);
+
+    var startTime = new Date().getTime();
+    var b = parseFloat(getComputedStyle(obj)[attr]);
+    var c = target - b;
+    var d = duration;
+
+    obj[attr] = setInterval(function() {
+
+        var t = new Date().getTime() - startTime;
+
+        if ( t >= d ) {
+            t = d;
+        }
+
+        var value = Tween[fx](t, b, c, d);
+
+        //根据要改变的属性来做判断，比如要改变的属性如果是透明度
+        if ( attr == 'opacity' ) {
+            obj.style[attr] = value;
+        } else {
+            obj.style[attr] = value + 'px';
+        }
+
+        if ( t == d ) {
+            clearInterval(obj[attr]);
+            obj[attr] = null;
+            if (typeof callback == 'function') {
+                callback();
+            }
+
+        }
+
+    }, 16);
+}
+
+function shake(obj,attr,speed,callback){
+        clearInterval(obj[attr]);
+        speed = speed || 30; //给默认值为30
+        var arr = [];
+        //得到一堆正负数
+        for( var i = speed; i > 0; i-=2 ){
+            arr.push(i,-i);
+        }
+        arr.push(0);
+        var m = 0;
+        var b = parseFloat(getComputedStyle(obj)[attr]);
+        obj[attr] = setInterval(function (){
+            obj.style[attr] = b + arr[m] + "px";
+            m++;
+            //到m为length的时候，清除定时器
+            if( m === arr.length ){
+                clearInterval(obj[attr]);
+                (typeof callback === "function") && callback();
+            };
+        },30);
+
+    }
+
+/*
+ * t : time 已过时间
+ * b : begin 起始值
+ * c : count 总的运动值
+ * d : duration 持续时间
+ * */
+
+//Tween.linear();
+
+var Tween = {
+    linear: function (t, b, c, d){  //匀速
+        return c*t/d + b;
+    },
+    easeIn: function(t, b, c, d){  //加速曲线
+        return c*(t/=d)*t + b;
+    },
+    easeOut: function(t, b, c, d){  //减速曲线
+        return -c *(t/=d)*(t-2) + b;
+    },
+    easeBoth: function(t, b, c, d){  //加速减速曲线
+        if ((t/=d/2) < 1) {
+            return c/2*t*t + b;
+        }
+        return -c/2 * ((--t)*(t-2) - 1) + b;
+    },
+    easeInStrong: function(t, b, c, d){  //加加速曲线
+        return c*(t/=d)*t*t*t + b;
+    },
+    easeOutStrong: function(t, b, c, d){  //减减速曲线
+        return -c * ((t=t/d-1)*t*t*t - 1) + b;
+    },
+    easeBothStrong: function(t, b, c, d){  //加加速减减速曲线
+        if ((t/=d/2) < 1) {
+            return c/2*t*t*t*t + b;
+        }
+        return -c/2 * ((t-=2)*t*t*t - 2) + b;
+    },
+    elasticIn: function(t, b, c, d, a, p){  //正弦衰减曲线（弹动渐入）
+        if (t === 0) {
+            return b;
+        }
+        if ( (t /= d) == 1 ) {
+            return b+c;
+        }
+        if (!p) {
+            p=d*0.3;
+        }
+        if (!a || a < Math.abs(c)) {
+            a = c;
+            var s = p/4;
+        } else {
+            var s = p/(2*Math.PI) * Math.asin (c/a);
+        }
+        return -(a*Math.pow(2,10*(t-=1)) * Math.sin( (t*d-s)*(2*Math.PI)/p )) + b;
+    },
+    elasticOut: function(t, b, c, d, a, p){    //正弦增强曲线（弹动渐出）
+        if (t === 0) {
+            return b;
+        }
+        if ( (t /= d) == 1 ) {
+            return b+c;
+        }
+        if (!p) {
+            p=d*0.3;
+        }
+        if (!a || a < Math.abs(c)) {
+            a = c;
+            var s = p / 4;
+        } else {
+            var s = p/(2*Math.PI) * Math.asin (c/a);
+        }
+        return a*Math.pow(2,-10*t) * Math.sin( (t*d-s)*(2*Math.PI)/p ) + c + b;
+    },
+    elasticBoth: function(t, b, c, d, a, p){
+        if (t === 0) {
+            return b;
+        }
+        if ( (t /= d/2) == 2 ) {
+            return b+c;
+        }
+        if (!p) {
+            p = d*(0.3*1.5);
+        }
+        if ( !a || a < Math.abs(c) ) {
+            a = c;
+            var s = p/4;
+        }
+        else {
+            var s = p/(2*Math.PI) * Math.asin (c/a);
+        }
+        if (t < 1) {
+            return - 0.5*(a*Math.pow(2,10*(t-=1)) *
+                Math.sin( (t*d-s)*(2*Math.PI)/p )) + b;
+        }
+        return a*Math.pow(2,-10*(t-=1)) *
+            Math.sin( (t*d-s)*(2*Math.PI)/p )*0.5 + c + b;
+    },
+    backIn: function(t, b, c, d, s){     //回退加速（回退渐入）
+        if (typeof s == 'undefined') {
+            s = 1.70158;
+        }
+        return c*(t/=d)*t*((s+1)*t - s) + b;
+    },
+    backOut: function(t, b, c, d, s){
+        if (typeof s == 'undefined') {
+            s = 3.70158;  //回缩的距离
+        }
+        return c*((t=t/d-1)*t*((s+1)*t + s) + 1) + b;
+    },
+    backBoth: function(t, b, c, d, s){
+        if (typeof s == 'undefined') {
+            s = 1.70158;
+        }
+        if ((t /= d/2 ) < 1) {
+            return c/2*(t*t*(((s*=(1.525))+1)*t - s)) + b;
+        }
+        return c/2*((t-=2)*t*(((s*=(1.525))+1)*t + s) + 2) + b;
+    },
+    bounceIn: function(t, b, c, d){    //弹球减振（弹球渐出）
+        return c - Tween['bounceOut'](d-t, 0, c, d) + b;
+    },
+    bounceOut: function(t, b, c, d){
+        if ((t/=d) < (1/2.75)) {
+            return c*(7.5625*t*t) + b;
+        } else if (t < (2/2.75)) {
+            return c*(7.5625*(t-=(1.5/2.75))*t + 0.75) + b;
+        } else if (t < (2.5/2.75)) {
+            return c*(7.5625*(t-=(2.25/2.75))*t + 0.9375) + b;
+        }
+        return c*(7.5625*(t-=(2.625/2.75))*t + 0.984375) + b;
+    },
+    bounceBoth: function(t, b, c, d){
+        if (t < d/2) {
+            return Tween['bounceIn'](t*2, 0, c, d) * 0.5 + b;
+        }
+        return Tween['bounceOut'](t*2-d, 0, c, d) * 0.5 + c*0.5 + b;
+    }
+}
+		</script>
+		<script>
+			window.onload = function(){
+			var Obtn = document.getElementById('btn');
+			var Oscore = document.getElementById('score');
+			var Oqq = document.getElementById('qq');
+			var runSpan = Oqq.getElementsByTagName('span')[0];
+			var Obox = document.getElementById('box');
+			var Ap = Oscore.getElementsByTagName('p');
+			var speedTime = 5000;
+			var winNum = 0; 
+			var loseNum = 0;
+			Obtn.onclick = function(){
+				this.disabled = true;
+				changeNum();
+			}
+			var isMousedown = false;
+			runSpan.onmousedown = function(){
+				if(!isMousedown){
+					isMousedown = true;
+					clearInterval(this.top);
+					runSpan.innerHTML=0;
+					shake(this,"left",10,function (){
+							winNum++;
+							Ap[0].innerHTML = "得分："+winNum+" 分";
+							if(winNum>=5){
+									alert("恭喜，你过关了！");
+									recover();
+							}else{
+								changeNum();
+							}
+							isMousedown = false;
+					})
+				}
+			}
+			function changeNum(){
+					var L = Math.round( Math.random() * 770 );
+					var n = Math.round( Math.random() * 10 )+1;
+					runSpan.style.left = L + "px";
+					runSpan.style.top = 0;
+					runSpan.innerHTML = n;
+					speedTime -= 100;
+					if( speedTime <= 100 ){
+						speedTime = 100;
+					}
+					mTween(runSpan,"top",800,speedTime,"linear",function (){
+							shake(Oqq,"top",10,function (){
+								loseNum++;
+								Ap[1].innerHTML = "失分："+loseNum+" 分";
+								if(loseNum>=5){
+									alert("game over,请重新开始");
+									recover();
+								}else{
+									changeNum();
+								}
+		
+							});
+					});		
+				}
+			function recover(){
+				var speedTime = 5000;
+				winNum = 0; 
+				loseNum = 0;
+				Obtn.disabled = false;
+				runSpan.style.top = '-30px';
+				Ap[0].innerHTML = "得分：0 分"
+				Ap[1].innerHTML = "失分：0 分"
+		
+			}
+		
+		}
+		</script>
+	</head>
+	<body>
+		<div id="title">
+			<h2>你的鼠标有多快?</h2>
+			<p>游戏说明：点击“开始游戏”，随机掉下数字，点中它，千万别让它掉下去！！</p>
+			<input type="button"  id="btn" value="开始游戏" />
+		</div>
+		<div id="box">
+			<div id="score">
+			  	<p>得分：0 分</p>
+			  	<p>失分：0 分</p>
+			</div>
+		    <div id="qq">
+		  	 	<span>1</span>
+		   </div>
+		</div>
+	</body>
+</html>
