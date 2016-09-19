@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <title>点击加分效果</title>
+        <style>
+                p{ margin:0; padding: 0; }
+                #bar{ position: relative; top: 100px; margin: 0 auto; height: 30px; width: 300px; border:1px #000 solid; font-size: 0 }
+                #bar p{ height: 30px; background: red; width:0px; position: absolute; top: 0; left: 0; z-index: -1; opacity: 0; }
+                #bar span{ display: inline-block; font-size: 14px; line-height: 30px;width: 30px; text-align: center; position: absolute; bottom: 0; opacity: 1 }
+        </style>
+        <script>
+        
+                window.onload = function(){
+                        var oBar = document.getElementById('bar');
+                        var oP = oBar.getElementsByTagName('p')[0];
+                        var aSpan = oBar.getElementsByTagName('span');
+                        var len = aSpan.length;
+                        var target = parseInt(getStyle(oBar, 'width'));
+                        var timer = null;
+                        var num = 0;
+                        var onOff = true;
+
+                        for (var i = 0; i < len; i++) {
+                                aSpan[i].style.left = i*30 + 'px';
+                        }
+
+                        oBar.onclick = function(){
+                                if (onOff == true) {
+                                        onOff = false;
+                                        doMove ( oP, 'width', 12, target, function(){
+                                                // over
+                                        });
+                                        opacity( oP, 0.04, 1, function(){
+                                                opacity( oP, 0.04, 0, function(){
+                                                // onOff = true;
+                                                });
+                                        });
+                                        clearInterval(timer);
+                                        timer = setInterval(function(){
+                                                doMove( aSpan[num], 'bottom', 2, 100, function(){
+                                                        // over
+                                                });
+                                                opacity( aSpan[num], 0.02, 0, function(){
+                                                        // over
+                                                });
+                                                num ++ ;
+                                                if (num == len) {
+                                                        clearInterval(timer);
+                                                        num = 0;
+                                                        // alert();
+                                                }
+                                        },100);
+                                }
+                        }
+
+                        oBar.onmouseover = function(){
+                                judge();
+                                if (onOff == true) {
+                                        for (var i = 0; i < aSpan.length; i++) {
+                                                aSpan[i].style.bottom = 0;
+                                                aSpan[i].style.opacity = 1;
+                                        }
+                                        oP.style.width = 0;
+                                }
+                        }
+
+                        function judge(){
+                                if (parseInt(getStyle(oP, 'width')) == target && parseFloat(getStyle(oP, 'opacity')) == 0 && parseFloat(getStyle(aSpan[len-1], 'opacity')) == 0 && parseFloat(getStyle(aSpan[len-1], 'bottom')) == 100) {
+                                        // alert();
+                                        onOff = true;
+                                }
+                        }
+                }
+// 让元素移动函数
+/*
+ * obj 元素名
+ * attr 改变的样式
+ * dir 速度 
+ * target 目标值 
+ * endFn 回调函数
+ */
+function doMove ( obj, attr, dir, target, endFn){
+        dir = parseInt(getStyle(obj,attr)) < target ? dir : -dir ;
+
+        clearInterval(obj.timer);
+        obj.timer = setInterval(function(){
+                var speed = parseInt(getStyle(obj,attr))+dir;
+                if (speed > target && dir > 0 || speed < target && dir < 0 ) {
+                        speed =target;
+                }
+                obj.style[attr] = speed + 'px';
+                if ( speed == target ) {
+                        clearInterval(obj.timer);
+                        endFn && endFn();
+                }
+        },30);
+}
+
+/*透明度渐变函数
+ * obj 元素名
+ * speed 改变的样式的初始值
+ * dir 速度 
+ * target 目标值 
+ * endFn 回调函数
+ */
+function opacity(obj, dir, target, endFn ){
+        dir = parseFloat(getStyle(obj, 'opacity')) < target ? dir : -dir;
+        clearInterval( obj.tOpacity);
+        obj.tOpacity = setInterval(function(){
+                var speed = parseFloat(getStyle(obj, 'opacity')) + dir;
+                if (speed > target && dir > 0 || speed<target && dir < 0 ) {
+                        speed = target;
+                }
+                obj.style.opacity = speed;
+                if (speed == target) {
+                        clearInterval(obj.tOpacity);
+                        endFn && endFn();
+                }
+        },30);
+}
+
+// 获取元素样式函数
+function getStyle(obj, attr){
+        return obj.currentStyle?obj.currentStyle[attr]:getComputedStyle( obj )[attr];
+}
+        </script>
+</head>
+<body>
+        <div id="bar">
+                <p></p>
+                <span>+1</span>
+                <span>+1</span>
+                <span>+1</span>
+                <span>+1</span>
+                <span>+1</span>
+                <span>+1</span>
+                <span>+1</span>
+                <span>+1</span>
+                <span>+1</span>
+                <span>+1</span>
+        </div>
+</body>
+</html>
