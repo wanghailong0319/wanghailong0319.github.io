@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>查看指定日期是星期几</title>
+		<script>
+			window.onload =function(){
+				var yearElement = document.getElementById('year');
+				var monthElement = document.getElementById('month');
+				var dayElement = document.getElementById('day');
+				var weekElement = document.getElementById('week');
+				var time =new Date();
+				YMD(2030,1970,time.getFullYear(),yearElement);
+				YMD(12,1,time.getMonth()+1,monthElement);
+				YMD(31,1,time.getDate(),dayElement);
+				yearElement.onchange = function(){
+					time.setFullYear(this.value);
+					weekElement.innerHTML= day(time.getDay());
+				}
+				monthElement.onchange = function(){
+					time.setMonth(this.value-1);
+					weekElement.innerHTML= day(time.getDay());
+				}
+				dayElement.onchange = function(){
+					time.setDate(this.value);
+					weekElement.innerHTML= day(time.getDay());
+				}
+				function YMD(target,star,get,ele){
+					var str = '';
+					for(var i = target;i>=star;i--){
+						if(i==get){
+							str +='<option selected>'+i+'</option>';
+						}else{
+							str +='<option>'+i+'</option>';
+						}
+					}
+					ele.innerHTML =str;
+				}
+				function day(value){
+					return ['日','一','二','三','四','五','六'][value]
+				}
+				weekElement.innerHTML= day(time.getDay());
+			}
+		</script>
+	</head>
+	<body>
+		<select id="year"></select>
+		<select id="month"></select>
+		<select id="day"></select>
+		星期<span id="week"></span>
+	</body>
+</html>
