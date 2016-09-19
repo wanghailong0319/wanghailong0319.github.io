@@ -1,31 +1,41 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="UTF-8">
-		<title></title>
-		<!--
-			yyyy/mm/dd HH/MM/SS
-		-->
+		<meta charset="utf-8" />
+		<title>时间</title>
+		<style>
+			#box{
+				width:500px;
+				height:300px;
+				line-height:100px;
+				text-align: center;
+				font-size:190%;
+				margin:0 auto;
+				border-radius:30px;
+			}
+		</style>
 		<script>
-			window.onload = function() {
-				var box = document.getElementById('box');
-				
-				time();
-				setInterval(time, 1000)
-				function time() {
+			window.onload = function(){
+				var Obox = document.getElementById('box');
+				var bgarr = ['red','orange','greenyellow','turquoise','aqua','blueviolet','blue','crimson'];
+				var num = 0;
+				move();
+				setInterval(move,1000)
+				function move(){
 					var d = new Date();
-					box.innerHTML = d.getFullYear()+'年'+format(d.getMonth()+1)+'月'+format(d.getDate())+'日 '+format(d.getHours())+':'+format(d.getMinutes())+':'+format(d.getSeconds())+' 星期'+formatWeek(d.getDay());
+					Obox.innerHTML = d.getFullYear()+'年'+time(d.getMonth()+1)+'月'+time(d.getDate())+'日'+'<br/>'+time(d.getHours())+'时'+time(d.getMinutes())+'分'+time(d.getSeconds())+'秒'+'<br/>'+'星期'+day(d.getDay()); 
+					num++;
+					num%=bgarr.length;
+					Obox.style.backgroundColor = bgarr[num];
 				}
-				
-				//getDay() 0,1,2,3,4,5,6
-				function formatWeek(value) {
-					return ['日','一','二','三','四','五','六'][value]
+				function day(b){
+					return ['日','一','二','三','四','五','六'][b]
 				}
-				function format(value) {
-					if(value < 10){
-						return '0' + value;
+				function time(a){
+					if(a<10){
+						return a='0'+a;
 					}else{
-						return value;
+						return a=a;
 					}
 				}
 			}
