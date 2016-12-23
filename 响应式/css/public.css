@@ -1,0 +1,28 @@
+body{
+	/*width:100%;*/
+	background:#f1f1f1;
+	margin:0 auto;
+	font-size:12px;
+	color:#535353;
+}
+.clearfix:after{
+	content:"";
+	display:block;
+	clear:both;
+}
+.fl{
+	float:left;
+}
+.fr{
+	float:right;
+}
+.ue-bg{
+	background-image:url(../img/ue-bg.png);
+	background-repeat:no-repeat;
+}
+body .nmr{
+	margin-right:0px;
+}
+.w880{
+	width:880px;
+}

@@ -1,0 +1,7 @@
+@import url("import.css");
+div{
+	width:500px;
+	height:500px;
+	color:blue;
+	background: pink;
+}
