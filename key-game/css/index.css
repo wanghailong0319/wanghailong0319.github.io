@@ -1,0 +1,45 @@
+	p{
+		padding:0;
+		margin:0;
+		line-height:40px;
+		font-size:20px;
+	}
+	#title{
+		width:1000px;
+		margin: 0 auto;
+		text-align: center;
+	}
+	#container{
+		width:1000px;
+		height:800px;
+		margin: 10px auto;
+		position: relative;
+	}
+	#score{
+		width:177px;
+		height:80px;
+		border:1px solid #00CED1;
+		background:pink;
+		padding:10px;
+		position:absolute;
+		top:0;
+		left:0;
+	}
+	#box{
+		width:800px;
+		height:800px;
+		overflow: hidden;
+		position:absolute;
+		top:0;
+		right:0px;
+		border:1px solid #00CED1;
+	}
+	#box #letter{
+		width:30px;
+		height:30px;
+		font-weight: bold;
+		position: absolute;
+		left: 0px;
+		top:-30px;
+		display: inline-block;
+	}
