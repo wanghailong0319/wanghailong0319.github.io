@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/snake.css"/>
+	</head>
+	<body>
+		<div id="container">
+			<div id="ground"></div>
+			<div id="control">
+				<ul id="speed">
+					<li >
+						<input type="button"  value="慢速" />
+					</li>
+					<li >
+						<input type="button"  value="中速" />
+					</li>
+					<li >
+						<input type="button"  value="快速" />
+					</li>
+					<li id="remove">
+						<input type="button"  value="减速" />
+					</li>
+					<li id="add">
+						<input type="button"  value="加速" />
+					</li>
+				</ul>
+				<span></span>
+				<div id="button">
+					<input type="button" id="start" value="开始" />
+				</div>
+			</div>
+			<div id="intro">
+				<h4>游戏说明：</h4>
+				<p>上下左右键控制蛇的转向，当吃的食物达到一定数量计数值加倍，当吃到类蛇身的食物时蛇身剪短但计数仍增加</p>
+			</div>
+		</div>
+
+		<script src="js/snake.js"></script>
+	</body>
+</html>
